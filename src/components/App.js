@@ -1,17 +1,15 @@
 import React from 'react';
-import PostItem from './PostItem';
 import Header from './Header';
+import PostItem from './PostItem';
 import Container from '@material-ui/core/Container';
 import './Main.css';
 
 const App = () => {
     return (
-        <div>
+        <React.Fragment>
             <Header />
-            <Container maxWidth="sm">
-                <PostItem />
-            </Container>
-        </div>
+            <PostItem />            
+        </React.Fragment>
     );
 }
 
