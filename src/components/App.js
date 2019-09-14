@@ -8,7 +8,7 @@ const App = () => {
     return (
         <React.Fragment>
             <Header />
-            <PostItem />            
+            <PostItem />
         </React.Fragment>
     );
 }

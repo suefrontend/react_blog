@@ -5,53 +5,51 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { spacing } from '@material-ui/system';
 import Typography from '@material-ui/core/Typography';
+import { withStyles } from "@material-ui/core/styles";
+import { db } from "../firebase";
 
-const useStyles = makeStyles(theme => ({
-    grid: {
-      marginBottom: 30,
+const useStyles = theme => ({
+    "grid": {
+        marginBottom: 30,
     }
-  }));
+  });
 
-function PostItem(){
-    const classes = useStyles();
+class PostItem extends React.Component {
+
+    state = {
+        articles: []
+    }
+
+    componentDidMount() {
+        db.collection("articles")
+          .get()
+          .then(querySnapshot => {
+            const data = querySnapshot.docs.map(doc => doc.data());
+            console.log(data);
+            this.setState({ articles: data });
+          });
+    }
+
+    render() {
+        const { classes } = this.props;
+        const { articles } = this.state;
+
     return (
         <Container maxWidth="md" position="relative">
-        <Grid container>                
-            <Grid item xs={12} className={classes.grid}>       
-                <article>
-                    <Typography component="h2" variant="display1" className={classes.typography}>
-                    Oliver The Beagle meets his owner for the first time in three months!
-                    </Typography>
-                    <Typography variant="body1" gutterBottom>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed maximus mi, id feugiat nulla. Nunc in viverra orci.Lorem ipsum dolor sit amet...</Typography>
-                </article>           
+            <Grid container>
+                {articles.map(article => (             
+                    <Grid item xs={12} className={classes.grid}>       
+                        <article>
+                            <Typography component="h2" variant="display1" className={classes.typography}>
+                            {article.title}
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>{article.text}...</Typography>
+                        </article>           
+                    </Grid>
+                ))}                                                               
             </Grid>
-            <Grid item xs={12} className={classes.grid}>        
-                <article>
-                    <Typography component="h2" variant="display1" className={classes.typography}>
-                    Oliver The Beagle meets his owner for the first time in three months!
-                    </Typography>
-                    <Typography variant="body1" gutterBottom>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed maximus mi, id feugiat nulla. Nunc in viverra orci.Lorem ipsum dolor sit amet...</Typography>
-                </article>              
-            </Grid>
-            <Grid item xs={12} className={classes.grid}>        
-                <article>
-                    <Typography component="h2" variant="display1" className={classes.typography}>
-                    Oliver The Beagle meets his owner for the first time in three months!
-                    </Typography>
-                    <Typography variant="body1" gutterBottom>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed maximus mi, id feugiat nulla. Nunc in viverra orci.Lorem ipsum dolor sit amet...</Typography>
-                </article>              
-            </Grid>
-            <Grid item xs={12} className={classes.grid}>        
-                <article>
-                    <Typography component="h2" variant="display1" className={classes.typography}>
-                    Oliver The Beagle meets his owner for the first time in three months!
-                    </Typography>
-                    <Typography variant="body1" gutterBottom>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed maximus mi, id feugiat nulla. Nunc in viverra orci.Lorem ipsum dolor sit amet...</Typography>
-                </article>              
-            </Grid>                                                            
-        </Grid>
         </Container>
-    )
+    )}
 }
 
-export default PostItem;
+export default withStyles(useStyles)(PostItem);
