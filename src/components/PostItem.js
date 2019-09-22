@@ -35,7 +35,7 @@ class PostItem extends React.Component {
         const { articles } = this.state;
 
     return (
-        <Container maxWidth="md" position="relative">
+        <Container maxWidth="md">
             <Grid container>
                 {articles.map(article => (             
                     <Grid item xs={12} className={classes.grid}>       
