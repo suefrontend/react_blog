@@ -24,6 +24,7 @@ class Edit extends React.Component {
           });
     }
 
+
     render() {
         const { classes } = this.props;
         const { articles } = this.state;
@@ -38,20 +39,18 @@ class Edit extends React.Component {
                       <TableCell></TableCell>
                     </TableRow>
                   </TableHead>
-                {articles.map(article => (    
-                    
-                    
-<TableBody>
-     
-
-
+                {articles.map(article => (                                            
+<TableBody>    
               <TableCell>{article.title}</TableCell>           
               <TableCell><Button variant="contained" color="primary">
         Edit
       </Button>
       </TableCell>           
               <TableCell>
-                  <Button variant="contained" color="secondary">Delete</Button>
+                  <Button 
+                      variant="contained" 
+                      color="secondary"
+                  >Delete</Button>
               </TableCell>           
                     
                    

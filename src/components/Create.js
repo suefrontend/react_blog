@@ -6,49 +6,59 @@ import {
     Button,
     TextField
   } from "@material-ui/core";
+  import { db } from "../firebase";
+  import firebase from "firebase";
 
-function Create() {
-    return (
-<div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          margin: 20,
-          padding: 20
-        }}
-      >
-        <form style={{ width: "50%" }}>
-          <h1>Create New Post</h1>
+  class Create extends React.Component {
 
-          <FormControl margin="normal" fullWidth>
-            <InputLabel htmlFor="title">Title</InputLabel>
-            <Input id="title" type="text" />
-          </FormControl>
+    state = {
+      title: "",
+      text: ""
+     };
 
+     updateInput = e => {
+      this.setState({
+        [e.target.name]: e.target.value
+      });
+    }
 
-          <FormControl margin="normal" fullWidth>
-          <TextField
-        id="standard-multiline-static"
-        label="Description"
-        multiline
-        rows="4"
-        placeHolder="Write Something..."
-        // className={classes.textField}
-        margin="normal"
-      />
-          </FormControl>
+    addUser = e => {
+      e.preventDefault();
+      // const db = firebase.firestore();
+      db.settings({
+        timestampsInSnapshots: true
+      });
+      const userRef = db.collection("articles").add({
+        title: this.state.title,
+        text: this.state.text
+      });  
+      this.setState({
+        title: "",
+        text: ""
+      });
+    };
 
-          <FormControl margin="normal" fullWidth>
-            <InputLabel htmlFor="description">YouTube URL</InputLabel>
-            <Input id="youtubeURL" type="text" />
-          </FormControl>
-
-          <Button variant="contained" color="primary" size="medium">
-            Post
-          </Button>
-        </form>
-      </div>
-    );
+    render() {
+      return (
+          <form onSubmit={this.addUser}>
+            <input
+              type="text"
+              name="title"
+              placeholder="Title"
+              onChange={this.updateInput}
+              value={this.state.title}
+            />
+            <input
+              type="text"
+              name="text"
+              placeholder="Description"
+              onChange={this.updateInput}
+              value={this.state.text}
+            />
+            <button type="submit">Submit</button>
+          </form>
+          );
+    }
 }
 
 export default Create;
