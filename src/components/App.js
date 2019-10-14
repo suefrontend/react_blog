@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import Home from './Home';
 import Edit from './Edit';
+import Show from './Show';
 import Create from './Create';
 import './Main.css';
 import { Router, Route, Switch } from 'react-router-dom';
@@ -14,7 +15,8 @@ function App() {
         <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/create' component={Create} />
-            <Route exact path='/edit' component={Edit} />
+            <Route exact path='/edit/:id' component={Edit} />
+            <Route exact path='/show/:id' component={Show} />
         </Switch>
     </Router>
     );

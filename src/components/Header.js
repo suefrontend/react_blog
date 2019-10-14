@@ -56,7 +56,7 @@ function Header() {
           <ul className={classes.nav}>
             <li style={{marginRight:'20px'}}><Link to='/' style={{color:'#000', textDecoration: 'none'}}>Home</Link></li>
             <li className={classes.item} style={{marginRight:'20px'}}><Link to='/create' style={{color:'#000', textDecoration: 'none'}}>Create</Link></li>
-            <li className={classes.item}><Link to='/edit' style={{color:'#000', textDecoration: 'none'}}>Edit</Link></li>
+            <li className={classes.item}><Link to='/edit/:id' style={{color:'#000', textDecoration: 'none'}}>Edit</Link></li>
           </ul>
         </Container>
       </AppBar>

@@ -1,11 +1,6 @@
 import React from 'react';
 import App from './App';
-import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
-import { spacing } from '@material-ui/system';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from "@material-ui/core/styles";
+import { Link } from 'react-router-dom';
 import { db } from "../firebase";
 
 const useStyles = theme => ({
@@ -14,42 +9,68 @@ const useStyles = theme => ({
     }
   });
 
-class PostItem extends React.Component {
-
-    state = {
+  class PostItem extends React.Component {
+    constructor(props) {
+      super(props);
+      this.ref = db.collection('articles');
+      this.unsubscribe = null;
+      this.state = {
         articles: []
+      };
     }
-
+  
+    onCollectionUpdate = (querySnapshot) => {
+      const articles = [];
+      querySnapshot.forEach((doc) => {
+        const { title, text } = doc.data();
+        articles.push({
+          key: doc.id,
+          doc, // DocumentSnapshot
+          title,
+          text
+        });
+      });
+      this.setState({
+        articles
+     });
+    }
+  
     componentDidMount() {
-        db.collection("articles")
-          .get()
-          .then(querySnapshot => {
-            const data = querySnapshot.docs.map(doc => doc.data());
-            console.log(data);
-            this.setState({ articles: data });
-          });
+      this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
     }
-
+  
     render() {
-        const { classes } = this.props;
-        const { articles } = this.state;
+      return (
+        <div class="container">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                BOARD LIST
+              </h3>
+            </div>
+            <div class="panel-body">
+              <h4><Link to="/create">Add Board</Link></h4>
+              <table class="table table-stripe">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.articles.map(article =>
+                    <tr>
+                      <td><Link to={`/show/${article.key}`}>{article.title}</Link></td>
+                      <td>{article.text}</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  }
 
-    return (
-        <Container maxWidth="md">
-            <Grid container>
-                {articles.map(article => (             
-                    <Grid item xs={12} className={classes.grid}>       
-                        <article>
-                            <Typography component="h2" variant="display1" className={classes.typography}>
-                            {article.title}
-                            </Typography>
-                            <Typography variant="body1" gutterBottom>{article.text}...</Typography>
-                        </article>           
-                    </Grid>
-                ))}                                                               
-            </Grid>
-        </Container>
-    )}
-}
-
-export default withStyles(useStyles)(PostItem);
+export default PostItem;
