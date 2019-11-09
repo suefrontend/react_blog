@@ -40,6 +40,8 @@ const useStyles = theme => ({
     }
   
     render() {
+      console.log(this.state);
+
       return (
         <div class="container">
           <div class="panel panel-default">

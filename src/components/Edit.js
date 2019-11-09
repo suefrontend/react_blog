@@ -3,82 +3,70 @@ import { db } from "../firebase";
 import { Link } from 'react-router-dom';
 
 class Edit extends React.Component {
-
   constructor(props) {
     super(props);
+    this.ref = db.collection('articles');
+    this.unsubscribe = null;
     this.state = {
-      key: '',
-      title: '',
-      text: ''
+      articles: []
     };
+  }
+  onCollectionUpdate = (querySnapshot) => {
+    const articles = [];
+    querySnapshot.forEach((doc) => {
+      const { title, text } = doc.data();
+      articles.push({
+        key: doc.id,
+        doc, // DocumentSnapshot
+        title,
+        text
+      });
+    });
+    this.setState({
+      articles
+   });
   }
 
   componentDidMount() {
-    const ref = db.collection('articles').doc(this.props.match.params.id);
-    ref.get().then((doc) => {
-      if (doc.exists) {
-        const articles = doc.data();
-        this.setState({
-          key: doc.id,
-          title: articles.title,
-          text: articles.text
-        });
-      } else {
-        console.log("No such document!");
-      }
-    });
+    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
   }
 
-  onChange = (e) => {
-    const state = this.state
-    state[e.target.name] = e.target.value;
-    this.setState({articles:state});
-  }
-
-  onSubmit = (e) => {
-    e.preventDefault();
-
-    const { title, text } = this.state;
-
-    const updateRef = db.collection('articles').doc(this.state.key);
-    updateRef.set({
-      title,
-      text
-    }).then((docRef) => {
-      this.setState({
-        key: '',
-        title: '',
-        text: ''
-      });
-      this.props.history.push("/show/"+this.props.match.params.id)
-    })
-    .catch((error) => {
-      console.error("Error adding document: ", error);
+  delete(id){
+    console.log(id);
+    db.collection('articles').doc(id).delete().then(() => {
+      console.log("Document successfully deleted!");
+      this.props.history.push("/")
+    }).catch((error) => {
+      console.error("Error removing document: ", error);
     });
   }
 
   render() {
+    console.log(this.state);
     return (
       <div class="container">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              EDIT BOARD
-            </h3>
-          </div>
-          <div class="panel-body">
-            <h4><Link to={`/show/${this.state.key}`} class="btn btn-primary">Board List</Link></h4>
-            <form onSubmit={this.onSubmit}>
-              <div class="form-group">
-                <label for="title">Title:</label>
-                <input type="text" class="form-control" name="title" value={this.state.title} onChange={this.onChange} placeholder="Title" />
-              </div>
-              <div class="form-group">
-                <label for="text">Description:</label>
-                <input type="text" class="form-control" name="text" value={this.state.text} onChange={this.onChange} placeholder="Description" />
-              </div>              
-              <button type="submit" class="btn btn-success">Submit</button>
-            </form>
+        <div class="panel panel-default">          
+          <div class="panel-body">            
+            <table class="table table-stripe">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              {this.state.articles.map(article =>
+                  <tr>
+                    <td>{article.title}</td>
+                    
+                    <td><button class="btn btn-success">Edit</button></td>
+                    <td><button onClick={this.delete.bind(this, this.state.key)} class="btn btn-danger">Delete</button></td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
