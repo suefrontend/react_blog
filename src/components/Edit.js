@@ -14,7 +14,7 @@ class Edit extends React.Component {
   onCollectionUpdate = (querySnapshot) => {
     const articles = [];
     querySnapshot.forEach((doc) => {
-      const { title, text } = doc.data();
+      const { title, text, key } = doc.data();
       articles.push({
         key: doc.id,
         doc, // DocumentSnapshot
@@ -31,9 +31,11 @@ class Edit extends React.Component {
     this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
   }
 
-  delete(id){
-    console.log(id);
-    db.collection('articles').doc(id).delete().then(() => {
+  delete(key){
+    {this.state.articles.map(article =>
+    console.log(`${article.key}`), "inside delete function");
+    }
+    db.collection('articles').doc(key).delete().then(() => {
       console.log("Document successfully deleted!");
       this.props.history.push("/")
     }).catch((error) => {
@@ -42,7 +44,7 @@ class Edit extends React.Component {
   }
 
   render() {
-    console.log(this.state);
+    console.log(db.collection('articles').doc);
     return (
       <div class="container">
         <div class="panel panel-default">          
@@ -62,7 +64,7 @@ class Edit extends React.Component {
                     <td>{article.title}</td>
                     
                     <td><button class="btn btn-success">Edit</button></td>
-                    <td><button onClick={this.delete.bind(this, this.state.key)} class="btn btn-danger">Delete</button></td>
+                    <td><button onClick={this.delete.bind(this, article.key)} class="btn btn-danger">Delete</button></td>
                   </tr>
                 )}
               </tbody>
