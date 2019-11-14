@@ -42,7 +42,7 @@ class Show extends React.Component {
         <div class="container">
           <div class="panel panel-default">
             <div class="panel-heading">
-            <h4><Link to="/">Board List</Link></h4>
+            
               <h3 class="panel-title">
                 {this.state.articles.title}
               </h3>
@@ -52,7 +52,7 @@ class Show extends React.Component {
                 <dt>Description:</dt>
                 <dd>{this.state.articles.text}</dd>
               </dl>
-              <Link to={`/edit/${this.state.key}`} class="btn btn-success">Edit</Link>&nbsp;
+              <Link to={`/EditPost/${this.state.key}`} class="btn btn-success">Edit</Link>&nbsp;
               <button onClick={this.delete.bind(this, this.state.key)} class="btn btn-danger">Delete</button>
             </div>
           </div>

@@ -31,6 +31,35 @@ class Edit extends React.Component {
     this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
   }
 
+  onChange = (e) => {
+    const state = this.state
+    state[e.target.name] = e.target.value;
+    this.setState({articles:state});
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    const { title, text, author } = this.state;
+
+    const updateRef = db.collection('articles').doc(this.state.key);
+    updateRef.set({
+      title,
+      text
+    }).then((docRef) => {
+      this.setState({
+        key: '',
+        title: '',
+        text: ''
+      });
+      this.props.history.push("/show/"+this.props.match.params.id)
+    })
+    .catch((error) => {
+      console.error("Error adding document: ", error);
+    });
+  }
+
+
   delete(key){
     {this.state.articles.map(article =>
     console.log(`${article.key}`), "inside delete function");
@@ -44,7 +73,6 @@ class Edit extends React.Component {
   }
 
   render() {
-    console.log(db.collection('articles').doc);
     return (
       <div class="container">
         <div class="panel panel-default">          
@@ -63,7 +91,7 @@ class Edit extends React.Component {
                   <tr>
                     <td>{article.title}</td>
                     
-                    <td><button class="btn btn-success">Edit</button></td>
+                    <td><Link to={`/EditPost/${article.key}`}><button class="btn btn-success">Edit</button></Link></td>
                     <td><button onClick={this.delete.bind(this, article.key)} class="btn btn-danger">Delete</button></td>
                   </tr>
                 )}
