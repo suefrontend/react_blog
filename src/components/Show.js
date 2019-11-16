@@ -1,7 +1,8 @@
 import React from 'react';
 import { db } from "../firebase";
 import { Link } from 'react-router-dom';
-
+import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
 
 class Show extends React.Component {
 
@@ -39,24 +40,23 @@ class Show extends React.Component {
   
     render() {
       return (
-        <div class="container">
-          <div class="panel panel-default">
-            <div class="panel-heading">
+        <Container maxWidth="md">
+         
             
               <h3 class="panel-title">
                 {this.state.articles.title}
               </h3>
-            </div>
-            <div class="panel-body">
+           
               <dl>
                 <dt>Description:</dt>
                 <dd>{this.state.articles.text}</dd>
               </dl>
-              <Link to={`/EditPost/${this.state.key}`} class="btn btn-success">Edit</Link>&nbsp;
+              <Link to={`/EditPost/${this.state.articles.key}`}><Button variant="contained" color="secondary" onClick={this.delete.bind(this, this.state.articles.key)}>Edit</Button></Link>
+
+
               <button onClick={this.delete.bind(this, this.state.key)} class="btn btn-danger">Delete</button>
-            </div>
-          </div>
-        </div>
+          
+        </Container>
       );
     }
   }

@@ -1,6 +1,10 @@
 import React from 'react';
 import { db } from '../firebase';
 import { Link } from 'react-router-dom';
+import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
 
 class EditPost extends React.Component {
 
@@ -57,9 +61,24 @@ class EditPost extends React.Component {
     });
   }
 
+  useStyles = makeStyles(theme => ({
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    textField: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      width: 200,
+    },
+  }));
+
   render() {
+
+    // const classes = useStyles();
+
     return (
-      <div class="container">
+        <Container maxWidth="md">
         <div class="panel panel-default">
 
           <div class="panel-body">
@@ -69,16 +88,48 @@ class EditPost extends React.Component {
                 <label for="title">Title:</label>
                 <input type="text" class="form-control" name="title" value={this.state.title} onChange={this.onChange} placeholder="Title" />
               </div>
-              <div class="form-group">
-                <label for="description">Description:</label>
-                <input type="text" class="form-control" name="text" value={this.state.text} onChange={this.onChange} placeholder="Description" />
-              </div>
-             
-              <button type="submit" class="btn btn-success">Submit</button>
+              
+      
+<TextField
+//   placeholder="MultiLine with rows: 2 and rowsMax: 4"
+  multiline={true}
+value={this.state.text} 
+onChange={this.onChange}
+id="outlined-multiline-static"
+//   label="Multiline"
+multiline
+rows="4"
+name="text"
+
+defaultValue="Default Value"        
+/><br />
+
+{/* <TextField
+  multiline={true}
+  Value={this.state.text} 
+  onChange={this.onChange}
+  id="outlined-multiline-static"
+  type="text"
+  name="text"
+        //   label="Multiline"
+          rows="14"
+        //   className={classes.textField}
+          margin="normal"
+          variant="outlined"
+          multiline
+          defaultValue="Default Value"       
+        />
+ */}
+
+              <Button variant="contained" type="submit">
+              Submit
+      </Button>
+
+              
             </form>
           </div>
         </div>
-      </div>
+      </Container>
     );
   }
 }

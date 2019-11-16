@@ -2,6 +2,8 @@ import React from 'react';
 import App from './App';
 import { Link } from 'react-router-dom';
 import { db } from "../firebase";
+import Container from '@material-ui/core/Container';
+import './Main.css';
 
 const useStyles = theme => ({
     "grid": {
@@ -42,30 +44,16 @@ const useStyles = theme => ({
     render() {
 
       return (
-        <div class="container">
-          <div class="panel panel-default">
-
-            <div class="panel-body">
-              
-              <table class="table table-stripe">
-                <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
+        <Container maxWidth="md">
+          
                   {this.state.articles.map(article =>
-                    <tr>
-                      <td><Link to={`/show/${article.key}`}>{article.title}</Link></td>
-                      <td>{article.text}</td>
-                    </tr>
+                    <div className="panel">
+                      <h2><Link to={`/show/${article.key}`}>{article.title}</Link></h2>
+                      <p>{article.text}</p>
+                    </div>
                   )}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+         
+        </Container>
       );
     }
   }

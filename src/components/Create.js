@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
   import { db } from "../firebase";
   import firebase from "firebase";
   import ReactDOM from 'react-dom';
+  import Container from '@material-ui/core/Container';
 
   class Create extends React.Component {
 
@@ -43,25 +44,25 @@ import { Link } from 'react-router-dom';
     render() {
       const { title, text } = this.state;
       return (
-        <div class="container">
+        <Container maxWidth="md">
           <div class="panel panel-default">
 
             <div class="panel-body">
               
               <form onSubmit={this.onSubmit}>
                 <div class="form-group">
-                  <label for="title">Title:</label>
+                  
                   <input type="text" class="form-control" name="title" value={title} onChange={this.onChange} placeholder="Title" />
                 </div>
                 <div class="form-group">
-                  <label for="description">Description:</label>
+
                   <textArea class="form-control" name="text" onChange={this.onChange} placeholder="Description" cols="80" rows="3">{text}</textArea>
                 </div>                
                 <button type="submit" class="btn btn-success">Submit</button>
               </form>
             </div>
           </div>
-        </div>
+        </Container>
       );
     }
   }

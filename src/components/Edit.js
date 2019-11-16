@@ -1,6 +1,15 @@
 import React from 'react';
 import { db } from "../firebase";
 import { Link } from 'react-router-dom';
+import Container from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 
 class Edit extends React.Component {
   constructor(props) {
@@ -74,32 +83,41 @@ class Edit extends React.Component {
 
   render() {
     return (
-      <div class="container">
-        <div class="panel panel-default">          
-          <div class="panel-body">            
-            <table class="table table-stripe">
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-              {this.state.articles.map(article =>
-                  <tr>
-                    <td>{article.title}</td>
-                    
-                    <td><Link to={`/EditPost/${article.key}`}><button class="btn btn-success">Edit</button></Link></td>
-                    <td><button onClick={this.delete.bind(this, article.key)} class="btn btn-danger">Delete</button></td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+      <Container maxWidth="md">
+                
+            
+          
+
+<Table aria-label="simple table">
+<TableBody>
+{this.state.articles.map(article =>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              {article.title}
+              </TableCell>
+              <TableCell align="right">
+                
+                
+              <Link to={`/EditPost/${article.key}`}><Button variant="contained" color="primary" >
+              Edit
+      </Button></Link>
+               
+                </TableCell>
+              <TableCell align="right">
+                
+              <Link to={`/EditPost/${article.key}`}><Button variant="contained" color="secondary" onClick={this.delete.bind(this, article.key)}>
+              Delete
+      </Button></Link>
+                
+                
+                </TableCell>              
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+              
+          
+      </Container>
     );
   }
 }
