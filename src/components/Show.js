@@ -47,14 +47,16 @@ class Show extends React.Component {
                 {this.state.articles.title}
               </h3>
            
-              <dl>
-                <dt>Description:</dt>
-                <dd>{this.state.articles.text}</dd>
-              </dl>
-              <Link to={`/EditPost/${this.state.articles.key}`}><Button variant="contained" color="secondary" onClick={this.delete.bind(this, this.state.articles.key)}>Edit</Button></Link>
+             <p>{this.state.articles.text}</p>
+             
+             <Link to={`/EditPost/${this.state.key}`}><Button variant="contained" color="primary" >
+              Edit
+      </Button></Link>
 
-
-              <button onClick={this.delete.bind(this, this.state.key)} class="btn btn-danger">Delete</button>
+              <Button variant="contained" color="secondary" onClick={this.delete.bind(this, this.state.key)}>
+              Delete
+      </Button>
+              
           
         </Container>
       );

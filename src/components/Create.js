@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
   import firebase from "firebase";
   import ReactDOM from 'react-dom';
   import Container from '@material-ui/core/Container';
+  import Button from '@material-ui/core/Button';
+  import TextField from '@material-ui/core/TextField';
+  import { makeStyles } from '@material-ui/core/styles';
 
   class Create extends React.Component {
 
@@ -43,6 +46,7 @@ import { Link } from 'react-router-dom';
   
     render() {
       const { title, text } = this.state;
+
       return (
         <Container maxWidth="md">
           <div class="panel panel-default">
@@ -57,8 +61,16 @@ import { Link } from 'react-router-dom';
                 <div class="form-group">
 
                   <textArea class="form-control" name="text" onChange={this.onChange} placeholder="Description" cols="80" rows="3">{text}</textArea>
-                </div>                
-                <button type="submit" class="btn btn-success">Submit</button>
+
+                </div>      
+
+
+                <Button type="submit" variant="contained" >
+                Submit
+      </Button>
+
+
+                {/* <button type="submit" class="btn btn-success">Submit</button> */}
               </form>
             </div>
           </div>

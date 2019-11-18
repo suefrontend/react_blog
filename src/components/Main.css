@@ -19,3 +19,18 @@ h2 a {
 h2 a:hover {
   opacity: 0.8;
 }
+input, textarea {
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  font: inherit;
+}
+input {
+  width: 60%;
+
+}
+
+textarea {
+  margin: 10px 0;
+  width: 80%;
+}

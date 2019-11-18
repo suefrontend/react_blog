@@ -61,21 +61,9 @@ class EditPost extends React.Component {
     });
   }
 
-  useStyles = makeStyles(theme => ({
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      width: 200,
-    },
-  }));
-
+  
+  
   render() {
-
-    // const classes = useStyles();
 
     return (
         <Container maxWidth="md">
@@ -85,12 +73,12 @@ class EditPost extends React.Component {
             
             <form onSubmit={this.onSubmit}>
               <div class="form-group">
-                <label for="title">Title:</label>
+                
                 <input type="text" class="form-control" name="title" value={this.state.title} onChange={this.onChange} placeholder="Title" />
               </div>
               
       
-<TextField
+<textarea
 //   placeholder="MultiLine with rows: 2 and rowsMax: 4"
   multiline={true}
 value={this.state.text} 
@@ -100,26 +88,9 @@ id="outlined-multiline-static"
 multiline
 rows="4"
 name="text"
-
 defaultValue="Default Value"        
 /><br />
 
-{/* <TextField
-  multiline={true}
-  Value={this.state.text} 
-  onChange={this.onChange}
-  id="outlined-multiline-static"
-  type="text"
-  name="text"
-        //   label="Multiline"
-          rows="14"
-        //   className={classes.textField}
-          margin="normal"
-          variant="outlined"
-          multiline
-          defaultValue="Default Value"       
-        />
- */}
 
               <Button variant="contained" type="submit">
               Submit
