@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from './Header';
-import PostItem from './PostItem';
+import Header from '../components/Header';
+import PostItem from '../components/PostItem';
 import Create from './Create';
 import './Main.css';
 

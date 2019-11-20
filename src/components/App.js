@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from './Header';
 import Home from './Home';
-import Edit from './Edit';
-import Show from './Show';
-import Create from './Create';
-import EditPost from './EditPost';
+import Edit from '../pages/Edit';
+import Show from '../pages/Show';
+import Create from '../pages/Create';
+import EditPost from '../pages/EditPost';
 import './Main.css';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from '../history';
