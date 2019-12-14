@@ -4,9 +4,13 @@ import PostItem from './PostItem';
 import Create from './Create';
 import '../components/Main.css';
 
-const Home = () => {
+function Home(props) {
+    console.log(props.articles);
     return (
-        <PostItem />
+        <div>
+        <PostItem articles={props.articles} />
+        {/* {articles.map(m => <li>{m.title}</li>)} */}
+        </div>
     );
 }
 
