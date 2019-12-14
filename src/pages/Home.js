@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from './Header';
+import Header from '../components/Header';
 import PostItem from './PostItem';
 import Create from './Create';
-import './Main.css';
+import '../components/Main.css';
 
 const Home = () => {
     return (

@@ -1,9 +1,9 @@
 import React from 'react';
-import App from './App';
+import App from '../components/App';
 import { Link } from 'react-router-dom';
-import { db } from "../firebase";
+import { db } from "../Firebase";
 import Container from '@material-ui/core/Container';
-import './Main.css';
+import '../components/Main.css';
 
 const useStyles = theme => ({
     "grid": {

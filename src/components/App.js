@@ -8,7 +8,7 @@ import EditPost from '../pages/EditPost';
 import './Main.css';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from '../history';
-import { db } from "../firebase";
+import { db } from "../Firebase";
 import { getThemeProps } from '@material-ui/styles';
 
 function App() {

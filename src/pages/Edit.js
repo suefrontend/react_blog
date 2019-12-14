@@ -1,5 +1,5 @@
 import React from 'react';
-import { db } from "../firebase";
+import { db } from "../Firebase";
 import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';

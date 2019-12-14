@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-  import { db } from "../firebase";
-  import firebase from "firebase";
-  import ReactDOM from 'react-dom';
-  import Container from '@material-ui/core/Container';
-  import Button from '@material-ui/core/Button';
-  import TextField from '@material-ui/core/TextField';
-  import { makeStyles } from '@material-ui/core/styles';
+import { db } from "../Firebase";
+import firebase from "firebase";
+import ReactDOM from 'react-dom';
+import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
 
   class Create extends React.Component {
 
