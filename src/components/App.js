@@ -23,23 +23,18 @@ function App() {
         
     }, []);
 
-    console.log("TESET", articles);
-
     return (
         <div>
-            {/* {articles.map(m => <li>{m.title}</li>)} */}
-    <Router history={history}>
-        <Header />
-        <Switch>
-            {/* <Route exact path='/' component={Home} articles={articles} /> */}
-            <Route exact path='/' render={(routeProps) => (<Home {...routeProps} articles={articles}/>)}  />
-
-            <Route exact path='/create' component={Create} />
-            <Route exact path='/edit' component={Edit} />
-            <Route exact path='/editPost/:id' component={EditPost} />
-            <Route exact path='/show/:id' component={Show}  />
-        </Switch>
-    </Router>
+            <Router history={history}>
+                <Header />
+                    <Switch>
+                        <Route exact path='/' render={(routeProps) => (<Home {...routeProps} articles={articles}/>)}  />
+                        <Route exact path='/create' component={Create} />
+                        <Route exact path='/edit' component={Edit} />
+                        <Route exact path='/editPost/:id' component={EditPost} />
+                        <Route exact path='/show/:id' component={Show}  />
+                    </Switch>
+            </Router>
     </div>
     );
 }

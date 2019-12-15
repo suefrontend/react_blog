@@ -1,7 +1,6 @@
 import firebase from 'firebase';
 
 const firebaseApp = firebase.initializeApp({
-  // copy and paste your firebase credential here
   apiKey: "AIzaSyCFV8Ilr04HXl7kNU0SDhMIIX5teJBTeQM",
   authDomain: "react-blog-980ea.firebaseapp.com",
   databaseURL: "https://react-blog-980ea.firebaseio.com",
